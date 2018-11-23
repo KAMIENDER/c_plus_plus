@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include<string>
 using namespace std;
 
@@ -98,8 +98,8 @@ int main(){
 	print(now);
 	Node* now1=copyList(head);
 	print(now1);
-}*/
-
+}
+/*
 #include<iostream>
 #include<pair>
 #include<vector>
@@ -130,5 +130,5 @@ int main(){
 	for(int t=0;t<out.size();t++){
 		cout<<out[t].first<<" "<<out[t].second<<endl;
 	}
-}
+}*/
 
