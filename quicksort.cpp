@@ -27,7 +27,6 @@ int main(){
 	}
 	quicksort(test,0,n-1);
 	for(int t=0;t<n;t++){
-		cout<<test.back()<<" ";
-		test.pop_back();
+		cout<<test[t]<<" ";
 	}
 }
