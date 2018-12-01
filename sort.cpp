@@ -1,3 +1,6 @@
+/*
+要写 
+*/
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -62,7 +65,32 @@ void tquicksort(vector<double> &in,int bot,int top){
 void quicksort(vector<double> &in){
 	tquicksort(in,0,in.size()-1);
 }
-
+void tmergesortvd(vector<double> &in,int bot,int top){
+	if(bot==top-1){
+		if(in[bot]<in[top])swap(in,bot,top);
+		return;
+	}
+	if(bot>=top)return;
+	int mid=bot+(top-bot)/2;
+	tmergesortvd(in,bot,mid);
+	tmergesortvd(in,mid+1,top);
+	int mark=mid+1;//注意这里的mark是上面分开排序的后半部分的第一个元素下标 
+	int down=bot;
+	vector<double> temp=in;
+	while(bot<=mid&&mark<=top){
+		in[down++]=(temp[bot]>temp[mark])?temp[bot++]:temp[mark++];//注意谁小选谁 
+	}
+	while(bot<=mid){
+		in[down++]=temp[bot++]; 
+	}
+	while(mark<=top){
+		in[down++]=temp[mark++];
+	} 
+	return;
+}
+void mergesort(vector<double> &in){
+	tmergesortvd(in,0,in.size()-1);
+}
 
 int main(){
 	int n;
@@ -75,6 +103,7 @@ int main(){
 	}
 	//insersort(all);
 	//shellsort(all);
-	quicksort(all);
+	//quicksort(all);
+	mergesort(all);
 	print(all);
 }
