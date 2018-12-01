@@ -42,6 +42,27 @@ void shellsort(vector<double> &in){
 		if(increat==1)break;
 	} 
 }
+void tquicksort(vector<double> &in,int bot,int top){
+	if(bot>=top)return;
+	int now=(bot+top)/2;
+	swap(in,now,bot);
+	int key=in[bot];
+	int last=bot;
+	//vector<double> temp=in;
+	for(int t=bot+1;t<=top;t++){//注意是小于等于 
+		if(in[t]<key){
+			last++;
+			swap(in,last,t);
+		}
+	}
+	swap(in,last,bot);
+	tquicksort(in,bot,last-1);
+	tquicksort(in,last+1,top);
+}
+void quicksort(vector<double> &in){
+	tquicksort(in,0,in.size()-1);
+}
+
 
 int main(){
 	int n;
@@ -53,6 +74,7 @@ int main(){
 		all.push_back(d);
 	}
 	//insersort(all);
-	shellsort(all);
+	//shellsort(all);
+	quicksort(all);
 	print(all);
 }
