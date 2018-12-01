@@ -31,7 +31,16 @@ void print(vector<double> in){
 }
 void shellsort(vector<double> &in){
 	int increat=in.size()/2;
-	
+	for(;increat>0;increat=increat/3+1){
+		for(int t=0;t<in.size();t=t+increat){
+			int j=t;
+			while(j>0&&in[j-increat]>in[j]){
+				swap(in,j,j-increat);
+				j=j-increat;
+			}
+		}
+		if(increat==1)break;
+	} 
 }
 
 int main(){
@@ -43,6 +52,7 @@ int main(){
 		cin>>d;
 		all.push_back(d);
 	}
-	insersort(all);
+	//insersort(all);
+	shellsort(all);
 	print(all);
 }
