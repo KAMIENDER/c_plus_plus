@@ -67,7 +67,7 @@ void quicksort(vector<double> &in){
 }
 void tmergesortvd(vector<double> &in,int bot,int top){
 	if(bot==top-1){
-		if(in[bot]<in[top])swap(in,bot,top);
+		if(in[bot]>in[top])swap(in,bot,top);
 		return;
 	}
 	if(bot>=top)return;
@@ -78,7 +78,7 @@ void tmergesortvd(vector<double> &in,int bot,int top){
 	int down=bot;
 	vector<double> temp=in;
 	while(bot<=mid&&mark<=top){
-		in[down++]=(temp[bot]>temp[mark])?temp[bot++]:temp[mark++];//注意谁小选谁 
+		in[down++]=(temp[bot]<temp[mark])?temp[bot++]:temp[mark++];//注意谁小选谁 
 	}
 	while(bot<=mid){
 		in[down++]=temp[bot++]; 
@@ -91,6 +91,39 @@ void tmergesortvd(vector<double> &in,int bot,int top){
 void mergesort(vector<double> &in){
 	tmergesortvd(in,0,in.size()-1);
 }
+void adjust(vector<double> &in,int now,int high){
+	int large=2*now+1;
+	int key=in[now];
+	while(large<high){
+		if(large+1<high&&in[large]<in[large+1]){
+			large++;
+		}
+		if(key>in[large])break;
+		in[now]=in[large];
+		now=large;
+		large=2*now+1;
+	}
+	in[now]=key;//这里是用now不是large，now才是找到的适合的点 
+}
+void build(vector<double> &in){
+	int now=in.size()/2-1;
+	for(;now>-1;now--){
+		adjust(in,now,in.size());
+	}
+	//print(in);
+}
+void heapsort(vector<double> &in){
+	build(in);
+	for(int t=in.size();t>0;t--){
+		int temp=in[0];
+		in[0]=in[t-1];
+		in[t-1]=temp;
+		adjust(in,0,t-1);
+	}
+	return;
+}
+
+
 
 int main(){
 	int n;
@@ -104,6 +137,7 @@ int main(){
 	//insersort(all);
 	//shellsort(all);
 	//quicksort(all);
-	mergesort(all);
+	//mergesort(all);
+	heapsort(all);
 	print(all);
 }
