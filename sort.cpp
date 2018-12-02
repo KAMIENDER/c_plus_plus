@@ -4,6 +4,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
+
 void swap(vector<double> &in,int a,int b){
 	double temp = in[a];
 	in[a] = in[b];
@@ -122,7 +123,19 @@ void heapsort(vector<double> &in){
 	}
 	return;
 }
-
+void insertsortb(vector<double> &in){
+	for(int t=1;t<in.size();t++){
+		if(in[t]<in[t-1]){
+			int key=in[t];
+			int i=t;
+			do{
+				in[i]=in[i-1];
+				i--;
+			}while(i>0&&key<in[i-1]);
+			in[i]=key;
+		}
+	}
+}
 
 
 int main(){
@@ -138,6 +151,7 @@ int main(){
 	//shellsort(all);
 	//quicksort(all);
 	//mergesort(all);
-	heapsort(all);
+	//heapsort(all);
+	insertsortb(all);
 	print(all);
 }
