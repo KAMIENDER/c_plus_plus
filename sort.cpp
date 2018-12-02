@@ -4,7 +4,50 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-
+template <typename Node_entry>struct Node {
+//  data members
+   Node_entry entry;
+   Node *next;
+//  constructors
+   Node(){next = NULL;};
+   Node(Node_entry item, Node *add_on = NULL){entry = item; next = add_on;};
+};
+template<typename T>
+void printl(Node<T>* head){
+	while(head!=NULL){
+		cout<<head->entry<<" ";
+		head=head->next;
+	}
+	cout<<endl;
+}
+vector<double> &createvector(){
+	int n;
+	cin>>n;
+	vector<double> out;
+	for(int t=0;t<n;t++){
+		double c;
+		cin>>c;
+		out.push_back(c);
+	} 
+	return out;
+}
+template<typename T>
+Node<T>* createlist(){
+	int n;
+	cin>>n;
+	Node<T>* head=new Node<T>;
+	Node<T>* now=head;
+	for(int t=0;t<n;t++){
+		double c;
+		cin>>c;
+		now->entry=c;
+		if(t<n-1){
+			now->next=new Node<T>;
+			now=now->next;
+		}
+	}
+	return head;
+}
 void swap(vector<double> &in,int a,int b){
 	double temp = in[a];
 	in[a] = in[b];
@@ -136,22 +179,46 @@ void insertsortb(vector<double> &in){
 		}
 	}
 }
-
+template<typename T>
+void insertsortbn(Node<T>* head){
+	if(head==NULL||head->next==NULL)return;
+	Node<T>* sorted=head;
+	Node<T>* sort;
+	while(sorted->next!=NULL){
+		sort=sorted->next;
+		if(sort->entry>=sorted->entry){
+			sorted=sorted->next;
+			continue;
+		}
+		Node<T>* now=head;
+		if(now->entry>sort->entry){
+			sorted->next=sort->next;
+			sort->next=head;
+			head=sort;
+			continue;
+		}
+		now=now->next;
+		Node<T>* pre=head;
+		while(now->entry<=sort->entry){
+			pre=pre->next;
+			now=now->next;
+		}
+		sorted->next=sort->next;
+		sort->next=now;
+		pre->next=sort;
+	}
+}
 
 int main(){
-	int n;
-	cin>>n;
-	vector<double> all;
-	for(int t=0;t<n;t++){
-		double d;
-		cin>>d;
-		all.push_back(d);
-	}
+	//vector<double> all=createvector();
+	Node<double>* head=createlist<double>();
 	//insersort(all);
 	//shellsort(all);
 	//quicksort(all);
 	//mergesort(all);
 	//heapsort(all);
-	insertsortb(all);
-	print(all);
+	//insertsortb(all);
+	//print(all);
+	insertsortbn(head);
+	printl(head);
 }
