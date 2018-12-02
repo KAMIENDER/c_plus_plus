@@ -267,7 +267,7 @@ Node<T>* merge(Node<T>* one,Node<T>* two){
 	return result->next;
 }
 template<typename T>
-void mergesortns(Node<T>* &head){//这里注意因为本身会对head的位置进行更改，所以说会改变head，只能传引用，不能传副本， 
+void mergesortns(Node<T>* &head){//这里注意因为本身会对head的位置进行更改，所以说会改变head，只能传引用，不能传副本， 链表都要注意这个问题 
 	//printl(head);
 	if(head==NULL||head->next==NULL)return;
 	Node<T>* subhead=divid(head);
