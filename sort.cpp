@@ -219,18 +219,80 @@ void selectionsort(vector<double> &in){
 		swap(in,key,t);
 	}
 }
+
+template<typename T>
+Node<T>* divid(Node<T>* head){
+	Node<T>* mid=head;
+	Node<T>* end=head;
+	if(head==NULL)return NULL;
+	end=end->next;//这一行很重要，否则第一次mid的移动不能保证end移动了两次 
+	while(end!=NULL){
+		end=end->next;
+		if(end!=NULL){
+			end=end->next;
+			mid=mid->next;
+		}
+	}
+	Node<T>* second=mid->next;
+	mid->next=NULL;
+	return second;
+}
+template<typename T>
+Node<T>* merge(Node<T>* one,Node<T>* two){
+	Node<T>* result=new Node<T>;
+	Node<T>* now=result;
+	while(one!=NULL&&two!=NULL){
+		//printl(one);
+		//printl(two);
+		if(one->entry>two->entry){
+			now->next=two;
+			two=two->next;
+			now=now->next;
+		}
+		else{
+			now->next=one;
+			one=one->next;
+			now=now->next;
+		}
+	}
+	if(one!=NULL){
+		now->next=one;
+		//printl(result->next);
+	}
+	if(two!=NULL){
+		now->next=two;
+		//printl(result->next);
+	}
+	//printl(result->next);
+	return result->next;
+}
+template<typename T>
+void mergesortns(Node<T>* &head){//这里注意因为本身会对head的位置进行更改，所以说会改变head，只能传引用，不能传副本， 
+	//printl(head);
+	if(head==NULL||head->next==NULL)return;
+	Node<T>* subhead=divid(head);
+	mergesortns(head);
+	mergesortns(subhead);
+	head=merge(head,subhead);
+	//printl(head);
+}
+template<typename T>
+void mergesortn(Node<T>* &head){
+	mergesortns(head);
+}
 int main(){
-	vector<double> all;
-	createvector(all);
-	//Node<double>* head=createlist<double>();
+	//vector<double> all;
+	//createvector(all);
+	Node<double>* head=createlist<double>();
 	//insersort(all);
 	//shellsort(all);
 	//quicksort(all);
 	//mergesort(all);
 	//heapsort(all);
 	//insertsortb(all);
-	selectionsort(all);
-	print(all);
+	//selectionsort(all);
+	//print(all);
 	//insertsortbn(head);
-	//printl(head);
+	mergesortn(head);
+	printl(head);
 }
