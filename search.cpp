@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
 template<typename T>
 void createv(vector<T> &out){
@@ -18,11 +19,23 @@ void printv(const vector<T> &in){
 	}
 	cout<<endl;
 }
+template<typename T>
+int sequentialsearch(vector<T> const in,T key){
+	int t;
+	for(t=in.size()-1;t>-1;t--){
+		if(in[t]==key)return t;
+	}
+	return -1;
+}
+
 
 int main(){
+	double key;
 	vector<double> in;
 	createv(in);
-	printv(in);
+	cin>>key;
+	sort(in.begin(),in.end());
+	cout<<sequentialsearch(in,key)<<endl;
 	return 0;
 }
 
