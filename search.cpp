@@ -29,17 +29,30 @@ int sequentialsearch(vector<T> const &in,T key){
 }
 template<typename T>
 int binarysearchrf(vector<T> const &in,int bot,int top,T key){
+	if(bot>top)return -1;
 	if(bot==top){
 		if(in[bot]==key)return bot;
 		return -1;
 	}
 	int mid=bot+(top-bot)/2;
-	if(in[mid]<key)return binarysearchrf(in,mid+1,top,key);
+	if(in[mid]<key)return binarysearchrf(in,mid+1,top,key);//这里不能反着写，会出现在top端的无限递归 
 	return binarysearchrf(in,bot,mid,key);
 }
 template<typename T>
+int binarysearchru(vector<T> const &in,int bot,int top,T key){
+	if(bot>top)return -1; 
+	if(bot==top){
+		return (in[bot]==key)?bot:-1;
+	}
+	int mid=top-(top-bot)/2;
+	if(in[mid]==key)return mid;
+	if(in[mid]>key)return binarysearchru(in,bot,mid-1,key);
+	return binarysearchru(in,mid,top,key);
+}
+
+template<typename T>
 int binarysearch(vector<T> const &in,T key){
-	return binarysearchrf(in,0,in.size()-1,key);
+	return binarysearchru(in,0,in.size()-1,key);
 }
 
 int main(){
