@@ -12,6 +12,12 @@ template <typename Node_entry>struct Node {
    Node(){next = NULL;};
    Node(Node_entry item, Node *add_on = NULL){entry = item; next = add_on;};
 };
+void print(vector<double> in){
+	for(int t=0;t<in.size();t++){
+		cout<<in[t]<<" ";
+	}
+	cout<<endl;
+}
 template<typename T>
 void printl(Node<T>* head){
 	while(head!=NULL){
@@ -20,16 +26,16 @@ void printl(Node<T>* head){
 	}
 	cout<<endl;
 }
-vector<double> &createvector(){
+void createvector(vector<double> &out){
 	int n;
 	cin>>n;
-	vector<double> out;
 	for(int t=0;t<n;t++){
 		double c;
 		cin>>c;
 		out.push_back(c);
+		//print(out);
 	} 
-	return out;
+	//return out;
 }
 template<typename T>
 Node<T>* createlist(){
@@ -69,12 +75,6 @@ void insersort(vector<double> &in){
 		move(in,i,t);
 		in[i]=key;
 	}
-}
-void print(vector<double> in){
-	for(int t=0;t<in.size();t++){
-		cout<<in[t]<<" ";
-	}
-	cout<<endl;
 }
 void shellsort(vector<double> &in){
 	int increat=in.size()/2;
@@ -208,17 +208,29 @@ void insertsortbn(Node<T>* head){
 		pre->next=sort;
 	}
 }
-
+void selectionsort(vector<double> &in){
+	for(int t=in.size()-1;t>0;t--){
+		int max=in[0];
+		int key=0;
+		for(int i=0;i<=t;i++){
+			key=(max<in[i])?i:key;
+			max=(max<in[i])?in[i]:max;
+		}
+		swap(in,key,t);
+	}
+}
 int main(){
-	//vector<double> all=createvector();
-	Node<double>* head=createlist<double>();
+	vector<double> all;
+	createvector(all);
+	//Node<double>* head=createlist<double>();
 	//insersort(all);
 	//shellsort(all);
 	//quicksort(all);
 	//mergesort(all);
 	//heapsort(all);
 	//insertsortb(all);
-	//print(all);
-	insertsortbn(head);
-	printl(head);
+	selectionsort(all);
+	print(all);
+	//insertsortbn(head);
+	//printl(head);
 }
