@@ -1,6 +1,5 @@
-#include<string>
 #include<iostream>
-#include<stack>
+#include<queue>
 using namespace std;
 template <typename T> struct BinaryNode{
   T elem;
@@ -8,37 +7,17 @@ template <typename T> struct BinaryNode{
   BinaryNode * right;
   BinaryNode(T d, BinaryNode *l=NULL, BinaryNode *r=NULL):elem(d),left(l),right(r){};
 };
-
 template <typename T>
-void inorder_recursive(BinaryNode<T>* root, void (*visit)(T &x)){
+void levelTraversal(BinaryNode<T>* root, void (*visit)(T &x)){
 	if(root==NULL)return;
-	inorder_recursive(root->left,visit);
-	visit(root->elem);
-	inorder_recursive(root->right,visit);
-}
-
- 
-
-template <typename T>
-void inorder(BinaryNode<T>* root, void (*visit)(T &x)){
-	stack<BinaryNode<T>* > all;
-	if(root==NULL)return; 
+	queue<BinaryNode<T>*> all;
 	while(true){
-		all.push(root);
-		if(root->left!=NULL){
-			root=root->left;
-		}
-		else {
-			if(all.empty()==true)break;
-			BinaryNode<T>* temp;
-			do{
-				temp=all.top();
-				all.pop();
-				visit(temp->elem);
-			}while(temp->right==NULL&&all.empty()==false);
-			root=temp->right;
-			if(root==NULL)break;
-		}
+		visit(root->elem);
+		if(root->left!=NULL)all.push(root->left);
+		if(root->right!=NULL)all.push(root->right);
+		if(all.empty()==true)break;
+		root=all.front();
+		all.pop();
 	}
 }
 template <typename D>
@@ -74,6 +53,6 @@ int main(){
 	BinaryNode<char> *all;
 	InitBiTree(all);
 	CreateBinaryNode(all);
-	inorder(all,print);
+	levelTraversal(all,print);
 	return 0;
 }
