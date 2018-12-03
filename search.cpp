@@ -49,7 +49,6 @@ int binarysearchru(vector<T> const &in,int bot,int top,T key){
 	if(in[mid]>key)return binarysearchru(in,bot,mid-1,key);
 	return binarysearchru(in,mid,top,key);
 }
-
 template<typename T>
 int binarysearch(vector<T> const &in,T key){
 	return binarysearchru(in,0,in.size()-1,key);
