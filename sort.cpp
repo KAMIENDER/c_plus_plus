@@ -86,7 +86,7 @@ void shellsort(vector<double> &in){
 				j=j-increat;
 			}
 		}
-		if(increat==1)break;
+		if(increat==1)break;//不写这个可能会无限递归 
 	} 
 }
 void tquicksort(vector<double> &in,int bot,int top){
@@ -281,18 +281,18 @@ void mergesortn(Node<T>* &head){
 	mergesortns(head);
 }
 int main(){
-	//vector<double> all;
-	//createvector(all);
-	Node<double>* head=createlist<double>();
+	vector<double> all;
+	createvector(all);
+	//Node<double>* head=createlist<double>();
 	//insersort(all);
 	//shellsort(all);
-	//quicksort(all);
+	quicksort(all);
 	//mergesort(all);
 	//heapsort(all);
 	//insertsortb(all);
 	//selectionsort(all);
-	//print(all);
+	print(all);
 	//insertsortbn(head);
-	mergesortn(head);
-	printl(head);
+	//mergesortn(head);
+	//printl(head);
 }

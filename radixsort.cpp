@@ -28,7 +28,7 @@ template<typename T>
 void sortlist<T>::radixsort(){
 	int size=3;
 	queue<T> all[28];
-	for(int t=size-1;t>-1;t--){
+	for(int t=size-1;t>-1;t--){//关键字从后往前 ，最后一次肯定是拍第一位 
 		while(this->empty()==false){
 			T now=this->front();
 			this->pop_front();
@@ -41,7 +41,7 @@ void sortlist<T>::radixsort(){
 template<typename T>
 void sortlist<T>::assign(queue<T> *in){
 	for(int t=0;t<28;t++){
-		while(in[t].empty()==false){
+		while(in[t].empty()==false){//把对应每个字母下标的单词取出，赋值给本来的vector 
 			this->push_back(in[t].front());
 			in[t].pop();
 		}
